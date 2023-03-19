@@ -1,75 +1,58 @@
 const API_URL = "https://api.node.glif.io/rpc/v0";
-const currentEpochElement = document.getElementById("current-epoch");
-const localTimeElement = document.getElementById("local-time");
-const clockElement = document.getElementById("clock");
 
-let currentEpoch = null;
+document.addEventListener("DOMContentLoaded", function () {
+  const currentEpochElement = document.getElementById("current-epoch");
+  const localTimeElement = document.getElementById("local-time");
+  const epochInputElement = document.getElementById("epoch-input");
+  const epochSubmitButton = document.getElementById("epoch-submit");
+  const epochResultElement = document.getElementById("epoch-result");
 
-async function getCurrentEpoch() {
-    const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            jsonrpc: "2.0",
-            method: "Filecoin.ChainHead",
-            id: 1
-        })
-    });
-
-    if (!response.ok) {
-        throw new Error("Failed to fetch current epoch");
-    }
-
-    const data = await response.json();
-    return data.result.Height;
-}
-
-async function updateEpoch() {
+  async function getCurrentEpoch() {
     try {
-        const epoch = await getCurrentEpoch();
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          jsonrpc: "2.0",
+          id: 1,
+          method: "Filecoin.ChainHead",
+          params: [],
+        }),
+      });
 
-        if (currentEpoch === null || epoch > currentEpoch) {
-            currentEpoch = epoch;
-            currentEpochElement.textContent = `Current Epoch: ${currentEpoch}`;
-            setTimeout(updateEpoch, 28800); // Update the epoch every 28.8 seconds
-        }
+      const data = await response.json();
+      return data.result.Height;
     } catch (error) {
-        console.error("Error fetching epoch data:", error);
+      console.error("Error fetching epoch data:", error);
+      return null;
     }
-}
+  }
 
-function updateLocalTime() {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    localTimeElement.textContent = `Local Time: ${hours}:${minutes}:${seconds}`;
-    clockElement.textContent = `Clock: ${hours}:${minutes}:${seconds}`;
-}
-
-updateEpoch();
-updateLocalTime();
-setInterval(updateLocalTime, 1000); // Update local time and clock every 1 second
-
-const epochInput = document.getElementById("epoch-input");
-const epochSubmit = document.getElementById("epoch-submit");
-const epochResult = document.getElementById("epoch-result");
-
-epochSubmit.addEventListener("click", () => {
-    const inputEpoch = parseInt(epochInput.value, 10);
-
-    if (isNaN(inputEpoch) || inputEpoch < 0) {
-        epochResult.textContent = "Please enter a valid epoch number.";
-        return;
-    }
-
-    const epochDuration = 28.8; // 28.8 seconds per epoch
+  function epochToDate(epoch) {
     const filecoinGenesisTimestamp = 1602799200; // UNIX timestamp of the Filecoin genesis block (2020-10-15 22:00:00 UTC)
+    const epochDuration = 28.8 * 1000;
+    const epochTimestamp = new Date((filecoinGenesisTimestamp * 1000) + epoch * epochDuration);
+    return epochTimestamp;
+  }
 
-    const epochTimestamp = filecoinGenesisTimestamp + inputEpoch * epochDuration;
-    const epochDate = new Date(epochTimestamp * 1000); // JavaScript uses milliseconds, so multiply by 1000
+  async function updateEpoch() {
+    const currentEpoch = await getCurrentEpoch();
+    if (currentEpoch !== null) {
+      currentEpochElement.textContent = "Current Epoch: " + currentEpoch;
+    }
+    const currentDate = new Date();
+    localTimeElement.textContent = "Local Time: " + currentDate.toLocaleString();
+    setTimeout(updateEpoch, 1000);
+  }
 
-    epochResult.textContent = `Epoch ${inputEpoch} corresponds to: ${epochDate.toLocaleString()}`;
+  epochSubmitButton.addEventListener("click", () => {
+    const epoch = parseInt(epochInputElement.value, 10);
+    if (!isNaN(epoch)) {
+      const epochDate = epochToDate(epoch);
+      epochResultElement.textContent = "Epoch " + epoch + " Date and Time: " + epochDate.toLocaleString();
+    }
+  });
+
+  updateEpoch();
 });
+
