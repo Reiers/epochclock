@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function epochToDate(epoch) {
-    const filecoinGenesisTimestamp = 1598313600; // UNIX timestamp of the Filecoin genesis block (2020-08-25 00:00:00 UTC)
+    const filecoinGenesisTimestamp = 1602776700; // UNIX timestamp of the Filecoin genesis block (2020-10-15 14:45:00 UTC)
     const epochDuration = 28.8 * 1000;
     const epochTimestamp = new Date((filecoinGenesisTimestamp * 1000) + epoch * epochDuration);
     return epochTimestamp;
