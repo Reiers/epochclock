@@ -8,7 +8,7 @@ Please note that this repository is not being actively maintained or updated. Fe
 
 ## Usage
 
-To use the Epoch Clock web app, simply visit the GitHub Pages site at [https://epochclock.io](https://reiers.github.io/epochclock/).
+To use the Epoch Clock web app, simply visit the GitHub Pages site at [https://epochclock.io](https://www.epochclock.io/).
 
 ## License
 
