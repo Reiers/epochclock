@@ -40,9 +40,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (currentEpoch !== null) {
       currentEpochElement.textContent = "Current Epoch: " + currentEpoch;
     }
+    setTimeout(updateEpoch, 90000); // Update Epoch every 1 minute and 30 seconds
+  }
+
+  function updateLocalTime() {
     const currentDate = new Date();
     localTimeElement.textContent = "Local Time: " + currentDate.toLocaleString();
-    setTimeout(updateEpoch, 90000); // Update every 1 minute and 30 seconds
+    setTimeout(updateLocalTime, 1000); // Update Local Time every second
   }
 
   epochSubmitButton.addEventListener("click", () => {
@@ -54,5 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   updateEpoch();
+  updateLocalTime();
 });
 
