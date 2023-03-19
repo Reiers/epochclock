@@ -18,8 +18,8 @@
             padding: 1rem;
         }
 
-        h2 {
-            color: #3a3a3a;
+        h2, h3, p {
+            color: #ffffff;
         }
 
         #epoch-container,
@@ -43,40 +43,34 @@
         button {
             font-size: 1rem;
             padding: 0.5rem;
-            background-image: linear-gradient(135deg, #0099f7 0%, #005dff 100%);
-            color: #ffffff;
+            background-image: linear-gradient(135deg, #4a4bf4, #8c6cff);
             border: none;
+            color: #ffffff;
+            border-radius: 25px;
             cursor: pointer;
-            text-transform: uppercase;
-            border-radius: 5px;
-        }
-
-        button:hover {
-            background-image: linear-gradient(135deg, #00a9ff 0%, #0070ff 100%);
         }
     </style>
+    <title>Epoch Clock</title>
 </head>
 <body>
     <header>
         <h1>Epoch Clock</h1>
-        <p>Current Filecoin Network Epoch Time</p>
     </header>
-    <main>
-        <div id="epoch-container">
-            <h2 id="current-epoch"></h2>
-        </div>
-        <div id="local-time-container">
-            <h2 id="local-time"></h2>
-        </div>
-        <div id="epoch-input-container">
-            <h3>Enter an epoch:</h3>
-            <input type="number" id="epoch-input" min="0" step="1">
-            <button id="epoch-submit">Get Date and Time</button>
-        </div>
-        <div id="epoch-result-container">
-            <h4 id="epoch-result"></h4>
-        </div>
-    </main>
-    <script src="https://reiers.github.io/epochclock/epochclock.js"></script>
+    <div id="epoch-container">
+        <h2 id="current-epoch">Current Epoch: 0</h2>
+    </div>
+    <div id="local-time-container">
+        <h3 id="local-time">Local Time: 0</h3>
+    </div>
+    <div id="epoch-input-container">
+        <p>Enter an epoch:</p>
+        <input type="number" id="epoch-input" min="0">
+        <button id="epoch-submit">GET DATE AND TIME</button>
+    </div>
+    <div id="epoch-result-container">
+        <h3 id="epoch-result"></h3>
+    </div>
+    <script src="epochclock.js"></script>
 </body>
 </html>
+
