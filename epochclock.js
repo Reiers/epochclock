@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function epochToDate(epoch) {
-    const filecoinGenesisTimestamp = 1598306400; // UNIX timestamp of the Filecoin genesis block (2020-08-24 22:00:00 UTC)
+    const filecoinGenesisTimestamp = 1598313600; // UNIX timestamp of the Filecoin genesis block (2020-08-25 00:00:00 UTC)
     const epochDuration = 28.8 * 1000;
     const epochTimestamp = new Date((filecoinGenesisTimestamp * 1000) + epoch * epochDuration);
     return epochTimestamp;
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateLocalTime() {
     const currentDate = new Date();
-    localTimeElement.textContent = "Local Time: " + currentDate.toLocaleString();
+    localTimeElement.textContent = "Local Time: " + currentDate.toLocaleString(undefined, { timeZoneName: 'short' });
     setTimeout(updateLocalTime, 1000); // Update Local Time every second
   }
 
@@ -53,11 +53,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const epoch = parseInt(epochInputElement.value, 10);
     if (!isNaN(epoch)) {
       const epochDate = epochToDate(epoch);
-      epochResultElement.textContent = "Epoch " + epoch + " Date and Time: " + epochDate.toLocaleString();
+      epochResultElement.textContent = "Epoch " + epoch + " Date and Time: " + epochDate.toLocaleString(undefined, { timeZoneName: 'short' });
     }
   });
 
   updateEpoch();
   updateLocalTime();
 });
-
