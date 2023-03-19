@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function epochToDate(epoch) {
-    const filecoinGenesisTimestamp = 1602799200; // UNIX timestamp of the Filecoin genesis block (2020-10-15 22:00:00 UTC)
+    const filecoinGenesisTimestamp = 1598306400; // UNIX timestamp of the Filecoin genesis block (2020-08-24 22:00:00 UTC)
     const epochDuration = 28.8 * 1000;
     const epochTimestamp = new Date((filecoinGenesisTimestamp * 1000) + epoch * epochDuration);
     return epochTimestamp;
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     const currentDate = new Date();
     localTimeElement.textContent = "Local Time: " + currentDate.toLocaleString();
-    setTimeout(updateEpoch, 1000);
+    setTimeout(updateEpoch, 90000); // Update every 1 minute and 30 seconds
   }
 
   epochSubmitButton.addEventListener("click", () => {
