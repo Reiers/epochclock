@@ -2,21 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/epochclock/reverse_epoch_clock.css">
-    <title>Epoch Time Search</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="timesearch.css">
 </head>
 <body>
-    <div class="container">
+    <header>
         <h1>Epoch Time Search</h1>
-        <div class="input-container">
-            <input type="datetime-local" id="inputDateTime" />
-            <button onclick="findEpoch()">Get Epoch</button>
+        <p>Find the Filecoin Epoch for a Specific Date and Time</p>
+    </header>
+    <main>
+        <div id="datetime-input-container">
+            <h3>Enter a date and time:</h3>
+            <input type="datetime-local" id="datetime-input">
+            <button id="datetime-submit">Get Epoch</button>
         </div>
-        <p id="result"></p>
-    </div>
-    <script src="/epochclock/timesearch.js"></script>
+        <div id="epoch-result-container">
+            <h4 id="epoch-result"></h4>
+        </div>
+    </main>
+    <script src="timesearch.js"></script>
 </body>
 </html>
